@@ -1,14 +1,9 @@
 import React from 'react'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { getRandomColor } from '../utils/getRandomColor';
 
 
-const DoghnutGraph = ({ data = [1, 2, 4], label }) => {
-
-  ChartJS.register(ArcElement, Tooltip, Legend);
-
-
+const DoghnutGraph = ({ data, label }) => {
 
   //set array of Color
   const colors = Object.values(data).map(color => getRandomColor())
