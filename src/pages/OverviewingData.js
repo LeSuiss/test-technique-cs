@@ -1,5 +1,5 @@
 import React from 'react'
-import DoghnutGraph from '../components/DoghnutGraph'
+import DoughnutGraph from '../components/DoughnutGraph'
 import data from '../data.json'
 import { with2Decimals } from '../utils/numbers'
 
@@ -22,23 +22,37 @@ const OverviewingData = () => {
 
   return (
     <>
-      <table>
-        {fieldMediums.map(field =>
-          <td>
-            <tr>
-              {field.name}
-            </tr>
-
-            <tr>
-              {field.medium}
-            </tr>
-          </td>
-        )}
-      </table>
       <h2>
         OverAll Sum : {globalSum}
       </h2>
-      <DoghnutGraph graphData={fieldMediums.map(field => field.medium)} />
+
+      <table>
+        <tbody>
+
+          {fieldMediums.map(field =>
+            <>
+              <tr>
+                <td>
+
+                </td>
+                {field.name}
+
+                <td>
+                  {field.medium}
+                </td>
+              </tr>
+            </>
+          )}
+        </tbody>
+      </table>
+
+      <div id='graphContainer'>
+
+        <DoughnutGraph
+          data={fieldMediums.map(field => field.medium)}
+          labels={fieldMediums.map(field => field.name)}
+        />
+      </div>
     </>
   )
 }

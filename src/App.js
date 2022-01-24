@@ -1,4 +1,3 @@
-import './App.css';
 import OverviewingData from './pages/OverviewingData';
 function App() {
   return (
