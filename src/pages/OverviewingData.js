@@ -8,30 +8,34 @@ const OverviewingData = () => {
 
   const colors = getRainBowColors(Object.values(data).length)
 
-  function getMedium(arrayOfEntities) {
+  function getScores(arrayOfEntities) {
 
-    const sum = arrayOfEntities
+    const points = arrayOfEntities
       .reduce((acc, current) => acc + current.ponderation * current.valeurChoix, 0)
 
-    const medium = sum / arrayOfEntities.length
+    const maxPoints = arrayOfEntities.reduce((acc, current) => acc + current.ponderation, 0)
 
     //return medium with 2 decimals max
-    return medium
+    return {
+      points: points,
+      maxPoints: maxPoints,
+      score: points / maxPoints
+    }
   }
 
   const dataFields = Object.keys(data)
-    .map(fieldName => ({ name: fieldName, medium: getMedium(data[fieldName]) }))
-    .sort((a, b) => b.medium - a.medium)
+    .map(fieldName => ({ name: fieldName, ...getScores(data[fieldName]) }))
+    .sort((a, b) => b.score - a.score)
 
-  const globalScore = Object.values(data)
-    .reduce((acc, current) => acc + getMedium(current), 0)
+  const globalPoints = Object.values(data)
+    .reduce((acc, current) => acc + getScores(current).points, 0)
 
-  const globalMedium = globalScore / Object.values(data).length
+  const globalMaxPoints = Object.values(data).reduce((acc, current) => acc + getScores(current).maxPoints, 0)
 
   return (
     <>
       <h2>
-        You get a global score of : {with2Decimals(globalMedium)} / {Object.values(data).length}
+        You get a global score of : {globalPoints}/{globalMaxPoints}
       </h2>
 
       <div id="detailedScoreContainer">
@@ -40,7 +44,8 @@ const OverviewingData = () => {
             <tr>
               <td />
               <td>category</td>
-              <td>medium </td>
+              <td>score </td>
+              <td>max</td>
             </tr>
           </thead>
           <tbody>
@@ -51,7 +56,10 @@ const OverviewingData = () => {
                   {field.name}
                 </td>
                 <td>
-                  {with2Decimals(field.medium)}
+                  {with2Decimals(field.points)}
+                </td>
+                <td>
+                  {with2Decimals(field.maxPoints)}
                 </td>
               </tr>
             )}
@@ -59,7 +67,7 @@ const OverviewingData = () => {
         </table>
 
         <DoughnutGraph
-          data={dataFields.map(field => with2Decimals(field.medium))}
+          dataFields={dataFields}
           colors={colors}
         />
 

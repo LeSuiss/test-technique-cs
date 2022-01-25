@@ -1,10 +1,10 @@
 import React from 'react'
 import Chart from "react-apexcharts";
 
-const DoughnutGraph = ({ data, colors }) => {
+const DoughnutGraph = ({ dataFields, colors }) => {
 
   return <Chart
-    series={data}
+    series={dataFields.map(category => category.points)}
     type="donut"
     width="380"
     options={{
@@ -13,7 +13,7 @@ const DoughnutGraph = ({ data, colors }) => {
       tooltip: {
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
           return '<div class="arrow_box">' +
-            '<span > ' + series[seriesIndex] + ' / 5  </span>' +
+            '<span > ' + series[seriesIndex] + ' / ' + dataFields[seriesIndex].maxPoints + ' </span>' +
             '</div>'
         }
       }
