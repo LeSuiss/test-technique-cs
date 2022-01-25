@@ -14,7 +14,7 @@ const DoughnutGraph = ({ dataFields, colors }) => {
       tooltip: {
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
           return '<div class="arrow_box">' +
-            '<span > ' + series[seriesIndex] + ' / ' + dataFields[seriesIndex].maxPoints + ' </span>' +
+            '<span > ' + series[seriesIndex] + ' / ' + dataFields.reduce((acc, value) => acc + value.points, 0) + ' </span>' +
             '</div>'
         }
       }
