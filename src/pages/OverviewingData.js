@@ -15,7 +15,6 @@ const OverviewingData = () => {
 
     const maxPoints = arrayOfEntities.reduce((acc, current) => acc + current.ponderation, 0)
 
-    //return medium with 2 decimals max
     return {
       points: points,
       maxPoints: maxPoints,
@@ -46,6 +45,7 @@ const OverviewingData = () => {
               <td>category</td>
               <td>score </td>
               <td>max</td>
+              <td>medium</td>
             </tr>
           </thead>
           <tbody>
@@ -61,6 +61,10 @@ const OverviewingData = () => {
                 <td>
                   {with2Decimals(field.maxPoints)}
                 </td>
+                <td>
+                  {with2Decimals(field.points / field.maxPoints * 100) + '%'}
+                </td>
+
               </tr>
             )}
           </tbody>
