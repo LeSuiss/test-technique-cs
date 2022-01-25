@@ -10,6 +10,7 @@ const DoughnutGraph = ({ dataFields, colors }) => {
     options={{
       colors: colors,
       legend: { show: false },
+      title: { text: "overall score" },
       tooltip: {
         custom: function ({ series, seriesIndex, dataPointIndex, w }) {
           return '<div class="arrow_box">' +
